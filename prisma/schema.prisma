@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  usuario_id     Int       @id @default(autoincrement())
+  nome           String    @db.VarChar(200)
+  login          String    @unique @db.VarChar(50)
+  senha          String    @db.VarChar(255)
+  atualizado_em  DateTime? @db.Timestamp(6)
+  atualizado_por Int?
+
+  produtos       Produto[]       @relation("UsuarioAtualizaProduto")
+  ordensProducao OrdemProducao[] @relation("UsuarioAtualizaOrdem")
+}
+
+model ProdutoTipo {
+  material_tipo_id Int    @id @default(autoincrement())
+  descricao        String @unique @db.VarChar(200)
+
+  produtos Produto[]
+}
+
+model Produto {
+  produto_id      Int       @id @default(autoincrement())
+  descricao       String    @unique @db.VarChar(200)
+  produto_tipo_id Int
+  atualizado_em   DateTime? @db.Timestamp(6)
+  atualizado_por  Int?
+  estoque         Int?
+
+  tipo    ProdutoTipo     @relation(fields: [produto_tipo_id], references: [material_tipo_id])
+  ordens  OrdemProducao[]
+  usuario Usuario?        @relation("UsuarioAtualizaProduto", fields: [atualizado_por], references: [usuario_id])
+}
+
+model OrdemProducao {
+  ordem_producao_id Int       @id @default(autoincrement())
+  produto_id        Int
+  data              DateTime  @db.Date
+  quantidade        Int
+  progresso         Int       @default(0)
+  atualizado_em     DateTime? @db.Timestamp(6)
+  atualizado_por    Int?
+
+  produto Produto  @relation(fields: [produto_id], references: [produto_id])
+  usuario Usuario? @relation("UsuarioAtualizaOrdem", fields: [atualizado_por], references: [usuario_id])
+}
