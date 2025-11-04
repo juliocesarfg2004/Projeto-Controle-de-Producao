@@ -1,16 +1,12 @@
 {
   "name": "api-fametro",
   "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "dev": "node --watch server.local.js",
-    "start": "node server.local.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "type": "module",
+  "main": "api/index.js",
+  "scripts": {
+    "build": "prisma generate",
+    "start": "node api/index.js"
+  },
   "dependencies": {
     "@prisma/client": "^6.18.0",
     "bcrypt": "^6.0.0",
