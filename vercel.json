@@ -2,11 +2,14 @@
   "version": 2,
   "functions": {
     "api/index.js": {
-      "maxDuration": 30,
-      "memory": 1024
+      "runtime": "nodejs18.x",
+      "includeFiles": "node_modules/.prisma/**"
     }
   },
   "routes": [
-    { "src": "/(.*)", "dest": "/api/index.js" }
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
   ]
 }
