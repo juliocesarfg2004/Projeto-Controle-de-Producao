@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
+      "https://controle-de-producao-front-dpb39j6x0.vercel.app",
       "https://controle-de-producao-front-i5yiolsbv.vercel.app",
       "http://localhost:5173"
     ],
