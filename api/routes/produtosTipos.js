@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 import express from "express";
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 router.post("/tipos-produtos", async (req, res) => {
   try {

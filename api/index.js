@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import serverless from "serverless-http";
 
 import usersRouter from "./routes/usuarios.js";
 import produtosRouter from "./routes/produtos.js";
@@ -27,12 +26,12 @@ app.use("/", produtosRouter);
 app.use("/", produtosTiposRouter);
 app.use("/", ordemProducaoRouter);
 
+app.get("/health", (req, res) => {
+  res.json({ status: "OK", message: "API está funcionando" });
+});
+
 app.use((req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
 
-
-const handler = serverless(app);
-
-export default handler;
-export { handler };
+export default app;
