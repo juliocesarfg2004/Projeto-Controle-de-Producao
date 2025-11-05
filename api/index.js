@@ -12,12 +12,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: [
-      "https://controle-de-producao-front.vercel.app",
-      "https://controle-de-producao-front-3j3tlw6bq.vercel.app",
-      "https://controle-de-producao-front-hjildthpp.vercel.app",
-      "http://localhost:5173"
-    ],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
