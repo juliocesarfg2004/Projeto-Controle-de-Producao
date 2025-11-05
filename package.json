@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "type": "module",
   "main": "api/index.js",
- "scripts": {
-  "dev": "node api/index.js",
-  "build": "prisma generate",
-  "start": "node api/index.js"
-}
-,
+  "scripts": {
+    "dev": "node api/index.js",
+    "start": "node api/index.js",
+    "postinstall": "prisma generate"
+  },
   "dependencies": {
-    "express": "^5.1.0",
-    "cors": "^2.8.5",
     "@prisma/client": "^6.18.0",
-    "bcrypt": "^6.0.0"
+    "@vercel/node": "^5.5.4",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
     "prisma": "^6.18.0"
