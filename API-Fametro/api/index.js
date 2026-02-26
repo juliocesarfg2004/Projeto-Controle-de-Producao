@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import serverless from "serverless-http";
 import usersRouter from "./routes/usuarios.js";
 import produtosRouter from "./routes/produtos.js";
 import produtosTiposRouter from "./routes/produtosTipos.js";
@@ -26,7 +27,10 @@ app.get("/", (req, res) => {
 
 app.listen(3000, () => console.log(`Servidor rodando na porta http://localhost:${3000}`))
 
-export default app;
-
-import serverless from "serverless-http";
-export const handler = serverless(app);
+export const handler = serverless(app, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  }
+});
