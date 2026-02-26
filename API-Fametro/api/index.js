@@ -24,9 +24,8 @@ app.get("/", (req, res) => {
   res.json({ status: "OK", message: "API está funcionando" });
 });
 
-app.use("*", (req, res) => {
-  res.status(404).json({ error: "Rota não encontrada" });
-});
+
+app.listen(3000, () => console.log(`Servidor rodando na porta http://localhost:${3000}`))
 
 export default app;
 
