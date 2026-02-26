@@ -9,7 +9,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors())
+app.use(cors({
+  origin: ["https://projeto-controle-de-producao.vercel.app", "http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}))
 
 app.use("/", usersRouter);
 app.use("/", produtosRouter);
@@ -25,3 +29,6 @@ app.use("*", (req, res) => {
 });
 
 export default app;
+
+import serverless from "serverless-http";
+export const handler = serverless(app);
