@@ -16,17 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.options("/usuarios", (req, res) => res.sendStatus(200));
+app.options("/produtos", (req, res) => res.sendStatus(200));
+app.options("/tipos-produtos", (req, res) => res.sendStatus(200));
+app.options("/ordem-producao", (req, res) => res.sendStatus(200));
+app.options("/login", (req, res) => res.sendStatus(200));
+
 app.use("/", usersRouter);
 app.use("/", produtosRouter);
 app.use("/", produtosTiposRouter);
 app.use("/", ordemProducaoRouter);
-
-app.all("/(.*)", (req, res) => {
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  return res.status(404).json({ error: "Not Found" });
-});
 
 app.get("/", (req, res) => {
   res.json({ status: "OK", message: "API está funcionando" });
