@@ -1,7 +1,5 @@
 import express from "express";
-import cors from "cors";
 import serverless from "serverless-http";
-
 import usersRouter from "./routes/usuarios.js";
 import produtosRouter from "./routes/produtos.js";
 import produtosTiposRouter from "./routes/produtosTipos.js";
@@ -11,18 +9,19 @@ const app = express();
 
 app.use(express.json());
 
-const corsOptions = {
-  origin: "https://projeto-controle-de-producao.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://projeto-controle-de-producao.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-app.use(cors(corsOptions));
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-app.options("*", cors(corsOptions));
+  next();
+});
 
-// Rotas
 app.use("/", usersRouter);
 app.use("/", produtosRouter);
 app.use("/", produtosTiposRouter);
