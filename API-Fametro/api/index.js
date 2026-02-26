@@ -10,7 +10,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://projeto-controle-de-p-git-63c06c-julio-cesars-projects-77a32ca8.vercel.app", "http://localhost:5173"],
+  origin: [
+    "https://projeto-controle-de-p-git-63c06c-julio-cesars-projects-77a32ca8.vercel.app",
+    "https://projeto-controle-de-producao-ufdv.vercel.app",
+    "http://localhost:5173"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
