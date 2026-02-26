@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import usersRouter from "./routes/usuarios.js";
 import produtosRouter from "./routes/produtos.js";
 import produtosTiposRouter from "./routes/produtosTipos.js";
@@ -6,14 +7,13 @@ import ordemProducaoRouter from "./routes/ordemProducao.js";
 
 const app = express();
 
-app.use(express.json());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.sendStatus(200);
-});
+app.use(express.json());
 
 app.use("/", usersRouter);
 app.use("/", produtosRouter);
