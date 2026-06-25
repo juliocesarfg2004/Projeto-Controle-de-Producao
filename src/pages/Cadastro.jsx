@@ -23,7 +23,9 @@ function Cadastro() {
       alert("Usuário Cadastrado com Sucesso!");
       navigate('/login');
     } catch (error) {
-      alert("Erro ao Cadastrar Usuário");
+      const msg = error.response?.data?.message || error.response?.data?.error || error.message || "Erro desconhecido";
+      alert("Erro: " + msg);
+      console.error("Erro no cadastro:", error.response?.data || error);
     } finally {
       setLoading(false);
     }
