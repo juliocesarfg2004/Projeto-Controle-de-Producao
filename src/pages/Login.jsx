@@ -20,8 +20,8 @@ function Login() {
         // Verifica se a resposta tem os dados do usuário
         console.log("Dados do usuário:", response.data);
         
-        // Salva os dados do usuário no localStorage
-        // Ajuste conforme a estrutura da sua API
+        // Salva token e dados do usuário separadamente
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem("usuario", JSON.stringify(response.data));
         
         alert("Login realizado com sucesso!");

@@ -23,6 +23,8 @@ export default function ListaUsuarios() {
   });
 
   const navigate = useNavigate();
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuario") || "{}");
+  const isAdmin = usuarioLogado?.user?.tipo === "admin";
 
   useEffect(() => {
     async function loadUsers() {
@@ -141,39 +143,43 @@ export default function ListaUsuarios() {
           </div>
 
           <div className="bg-[#0A1929] rounded-lg shadow-xl border border-[#1E3A5F] overflow-hidden">
-            <table className="min-w-full divide-y divide-[#1E3A5F]">
-              <thead className="bg-[#0F2744]">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Nome</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Email</th>
-                  <th className="px-13 py-3 text-right text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#1E3A5F]">
-                {allUsers.map((user) => (
-                  <tr key={user.usuario_id} className="hover:bg-[#132F4C] transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.usuario_id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.nome}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.login}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => openEditModal(user)}
-                        className="text-[#FBBF24] hover:text-[#FCD34D] mr-3 transition-colors"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => handleDeleteUsers(user.usuario_id)}
-                        className="text-[#F87171] hover:text-[#FCA5A5] transition-colors"
-                      >
-                        Excluir
-                      </button>
-                    </td>
+              <table className="min-w-full divide-y divide-[#1E3A5F]">
+                <thead className="bg-[#0F2744]">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Nome</th>
+                    {isAdmin && <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Email</th>}
+                    {isAdmin && <th className="px-6 py-3 text-left text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Tipo</th>}
+                    {isAdmin && <th className="px-13 py-3 text-right text-xs font-medium text-[#94A3B8] uppercase tracking-wider">Ações</th>}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-[#1E3A5F]">
+                  {allUsers.map((user) => (
+                    <tr key={user.usuario_id} className="hover:bg-[#132F4C] transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.usuario_id}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.nome}</td>
+                      {isAdmin && <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.login || "-"}</td>}
+                      {isAdmin && <td className="px-6 py-4 whitespace-nowrap text-sm text-[#E2E8F0]">{user.tipo}</td>}
+                      {isAdmin && (
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <button
+                            onClick={() => openEditModal(user)}
+                            className="text-[#FBBF24] hover:text-[#FCD34D] mr-3 transition-colors"
+                          >
+                            Editar
+                          </button>
+                          <button
+                            onClick={() => handleDeleteUsers(user.usuario_id)}
+                            className="text-[#F87171] hover:text-[#FCA5A5] transition-colors"
+                          >
+                            Excluir
+                          </button>
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
           </div>
         </div>
 
