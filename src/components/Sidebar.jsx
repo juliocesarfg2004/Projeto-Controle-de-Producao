@@ -51,7 +51,7 @@ export default function Sidebar() {
       <div className="p-4 border-t border-[#1E3A5F]">
         <button
           onClick={() => {
-            alert("Você saiu do sistema");
+            localStorage.removeItem("usuario");
             window.location.href = "/login";
           }}
           className="flex items-center gap-3 px-4 py-3 w-full text-[#F87171] hover:bg-[#1E3A5F] hover:text-[#FCA5A5] rounded-lg transition-colors"

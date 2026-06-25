@@ -80,7 +80,7 @@ function Login() {
 
         <p className="text-center mt-6 text-[#94A3B8]">
           Não tem uma conta?{" "}
-          <Link to="/" className="text-[#60A5FA] hover:text-[#93C5FD] font-medium hover:underline">
+           <Link to="/cadastro" className="text-[#60A5FA] hover:text-[#93C5FD] font-medium hover:underline">
             Cadastre-se
           </Link>
         </p>
